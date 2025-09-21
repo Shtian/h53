@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "types": ["node"],
+    "rootDir": ".",
+    "outDir": "./dist"
+  },
+  "include": ["convex/**/*.ts", "src/**/*.ts"],
+  "exclude": ["node_modules"]
+}

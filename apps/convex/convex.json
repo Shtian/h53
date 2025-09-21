@@ -1,0 +1,9 @@
+{
+  "$schema": "https://raw.githubusercontent.com/get-convex/convex/main/packages/convex-config/src/schema.json",
+  "projectConfig": {
+    "name": "h53-family-portal"
+  },
+  "functions": {
+    "path": "./convex"
+  }
+}

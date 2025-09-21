@@ -1,0 +1,201 @@
+openapi: 3.1.0
+info:
+  title: H53 Family Cabin Portal API
+  version: 0.1.0
+  description: API surface for authenticated family members to access album and handbook content.
+servers:
+  - url: https://api.h53.family/v1
+    description: Production
+  - url: http://localhost:3001/v1
+    description: Development
+security:
+  - clerk: []
+components:
+  securitySchemes:
+    clerk:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    FamilyMember:
+      type: object
+      required: [id, email, fullName, role]
+      properties:
+        id:
+          type: string
+          format: uuid
+        email:
+          type: string
+          format: email
+        fullName:
+          type: string
+        role:
+          type: string
+          enum: [viewer, content_admin]
+    AlbumEntry:
+      type: object
+      required: [id, title, imageUrl, takenAt, uploadedAt]
+      properties:
+        id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        caption:
+          type: string
+        imageUrl:
+          type: string
+          format: uri
+        takenAt:
+          type: string
+          format: date-time
+        uploadedAt:
+          type: string
+          format: date-time
+        tags:
+          type: array
+          items:
+            type: string
+    HandbookArticle:
+      type: object
+      required: [slug, title, summary, publishedAt]
+      properties:
+        slug:
+          type: string
+        title:
+          type: string
+        summary:
+          type: string
+        publishedAt:
+          type: string
+          format: date-time
+        tags:
+          type: array
+          items:
+            type: string
+        content:
+          type: string
+    AuditLogEntry:
+      type: object
+      required: [id, eventType, occurredAt]
+      properties:
+        id:
+          type: string
+          format: uuid
+        eventType:
+          type: string
+        occurredAt:
+          type: string
+          format: date-time
+        actorId:
+          type: string
+          format: uuid
+        payload:
+          type: object
+paths:
+  /session:
+    get:
+      summary: Get the current authenticated family member profile.
+      operationId: getSession
+      responses:
+        '200':
+          description: Authenticated session details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FamilyMember'
+        '401':
+          description: Not authenticated.
+  /album:
+    get:
+      summary: List album entries visible to the authenticated member.
+      operationId: listAlbumEntries
+      parameters:
+        - in: query
+          name: sort
+          schema:
+            type: string
+            enum: [newest, chronological]
+          description: Sort order; defaults to newest.
+      responses:
+        '200':
+          description: Album feed.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AlbumEntry'
+  /album/{id}:
+    get:
+      summary: Fetch a single album entry.
+      operationId: getAlbumEntry
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Album entry.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlbumEntry'
+        '404':
+          description: Not found or archived.
+  /handbook:
+    get:
+      summary: List published handbook articles with summaries.
+      operationId: listHandbookArticles
+      responses:
+        '200':
+          description: Handbook index.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/HandbookArticle'
+  /handbook/{slug}:
+    get:
+      summary: Fetch a full handbook article by slug.
+      operationId: getHandbookArticle
+      parameters:
+        - in: path
+          name: slug
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Handbook article.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HandbookArticle'
+        '404':
+          description: Article missing or unpublished.
+  /audit-logs:
+    get:
+      summary: List recent audit events (content admin only).
+      operationId: listAuditLogs
+      parameters:
+        - in: query
+          name: cursor
+          schema:
+            type: string
+          description: Pagination cursor.
+      responses:
+        '200':
+          description: Audit log entries.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AuditLogEntry'
+        '403':
+          description: Requires content_admin role.

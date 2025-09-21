@@ -1,0 +1,21 @@
+{
+  "name": "@h53/cli",
+  "version": "0.0.0",
+  "type": "module",
+  "bin": {
+    "h53": "dist/index.js"
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc --noEmit",
+    "dev": "tsx src/index.ts"
+  },
+  "dependencies": {
+    "commander": "^11.1.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.2"
+  }
+}
