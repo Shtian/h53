@@ -12,16 +12,16 @@
 
 ## Phase 3.2: Tests First (TDD) ⚠️ MUST COMPLETE BEFORE 3.3
 **CRITICAL: These tests MUST be written and MUST FAIL before ANY implementation**
-- [ ] T006 [P] Author MSW-backed contract test for GET /session in `tests/contract/session.contract.test.ts`.
-- [ ] T007 [P] Author contract test for GET /album (list) in `tests/contract/album-list.contract.test.ts`.
-- [ ] T008 [P] Author contract test for GET /album/{id} in `tests/contract/album-detail.contract.test.ts`.
-- [ ] T009 [P] Author contract test for GET /handbook in `tests/contract/handbook-list.contract.test.ts`.
-- [ ] T010 [P] Author contract test for GET /handbook/{slug} in `tests/contract/handbook-detail.contract.test.ts`.
-- [ ] T011 [P] Author contract test for GET /audit-logs in `tests/contract/audit-logs.contract.test.ts`.
-- [ ] T012 [P] Add CLI contract test validating `sync-content` JSON/human output in `tests/contract/cli/sync-content.contract.test.ts`.
-- [ ] T013 [P] Add CLI contract test for `export-logs` pagination + correlation IDs in `tests/contract/cli/export-logs.contract.test.ts`.
-- [ ] T014 [P] Script Playwright flow for Clerk login → album browsing in `tests/integration/portal-album.spec.ts`.
-- [ ] T015 [P] Script Playwright flow for handbook navigation + offline cache validation in `tests/integration/portal-handbook-offline.spec.ts`.
+- [x] T006 [P] Author MSW-backed contract test for GET /session in `tests/contract/session.contract.test.ts`.
+- [x] T007 [P] Author contract test for GET /album (list) in `tests/contract/album-list.contract.test.ts`.
+- [x] T008 [P] Author contract test for GET /album/{id} in `tests/contract/album-detail.contract.test.ts`.
+- [x] T009 [P] Author contract test for GET /handbook in `tests/contract/handbook-list.contract.test.ts`.
+- [x] T010 [P] Author contract test for GET /handbook/{slug} in `tests/contract/handbook-detail.contract.test.ts`.
+- [x] T011 [P] Author contract test for GET /audit-logs in `tests/contract/audit-logs.contract.test.ts`.
+- [x] T012 [P] Add CLI contract test validating `sync-content` JSON/human output in `tests/contract/cli/sync-content.contract.test.ts`.
+- [x] T013 [P] Add CLI contract test for `export-logs` pagination + correlation IDs in `tests/contract/cli/export-logs.contract.test.ts`.
+- [x] T014 [P] Script Playwright flow for Clerk login → album browsing in `tests/integration/portal-album.spec.ts`.
+- [x] T015 [P] Script Playwright flow for handbook navigation + offline cache validation in `tests/integration/portal-handbook-offline.spec.ts`.
 
 ## Phase 3.3: Core Implementation (ONLY after tests are failing)
 - [ ] T016 [P] Implement `packages/h53-core/src/family-member.ts` types + zod validators.
