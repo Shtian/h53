@@ -150,7 +150,7 @@ tests/
 - **API Surface**: Next.js App Router `/api` endpoints proxying to Convex actions per `contracts/site-api.openapi.yaml`.
 - **Validation**: Shared Zod schemas for uploads, articles, and weather payloads; Convex mutations enforce size/format guards.
 - **UI Composition**: Authenticated routes under `app/guestbook` and `app/articles`; weather header consumes cached snapshot.
-- **Observability**: Store timestamps on mutations for lightweight history tracking.
+- **Observability**: Use simple `logEvent` helper for API operations and rely on timestamps stored in Convex documents; schedule weather refresh via cron-triggered API route.
 
 ## Phase 2: Task Planning Approach
 *This section describes what the /tasks command will do - DO NOT execute during /plan*
@@ -165,7 +165,7 @@ tests/
 - Setup → Convex schema → API routes → UI routes → Integrations → Polish
 - Apply `[P]` only when files differ to avoid conflicts
 
-**Estimated Output**: 30 ±2 tasks in `tasks.md`
+**Estimated Output**: 25 ±2 tasks in `tasks.md`
 
 ### Phase 2 Strategy Notes
 - Tasks already generated (see `/specs/001-a-website-for/tasks.md`); keep parallel-friendly tasks marked `[P]`.

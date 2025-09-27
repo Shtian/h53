@@ -18,8 +18,8 @@
 - **Alternatives Considered**: PlanetScale + S3 (requires managing ORM + storage separately), Supabase (includes additional services we no longer need), SQLite (lacks hosted resilience).
 
 ### Weather Integration
-- **Decision**: Consume the yr.no JSON API through a server action scheduled revalidation every 6 hours with persistent caching (e.g., KV store or edge cache).
-- **Rationale**: Aligns with user preference and spec requirement while limiting outbound calls. Revalidation ensures updated data without live polling.
+- **Decision**: Consume the yr.no JSON API via a scheduled Vercel cron hitting `/api/weather/refresh`, which persists snapshots through Convex every six hours.
+- **Rationale**: Aligns with user preference and spec requirement while limiting outbound calls. Cron-driven refresh ensures updated data without live polling.
 - **Alternatives Considered**: OpenWeatherMap (broader global coverage but contradicts user preference), manual scraping (fragile).
 
 ### Content Editing Experience

@@ -36,7 +36,7 @@
 3. Observe weather fallback messaging by forcing the yr.no request to fail (e.g., temporary network disable).
 
 ## 8. Deployment Checklist
-1. Link Convex project to production deployment and configure environment variables in Vercel.
-2. Configure Cron-like revalidation for weather (Vercel Edge Config or On-demand ISR).
+1. Link Convex project to production deployment and configure environment variables (`NEXT_PUBLIC_CONVEX_URL`, `CONVEX_AUTH_TOKEN`, `WEATHER_CRON_SECRET`) in Vercel.
+2. Deploy `vercel.json` cron so `/api/weather/refresh` runs every 6 hours with the matching secret header.
 3. Set up Clerk sender identity for transactional emails.
 4. Verify Conventional Commit compliance with `npm run commitlint -- --from=HEAD~5`.

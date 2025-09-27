@@ -64,9 +64,9 @@
 - [X] T016 Build maintenance article experience in `src/app/articles/page.tsx`, `src/app/articles/[articleId]/page.tsx`, and `src/components/articles/`.
 
 ## Phase 3.3: Integration
-- [ ] T018 Integrate Clerk session enforcement so only `/` and `/api/health` remain public (`middleware.ts`, middleware config, and API handlers).
-- [ ] T019 Add lightweight structured logging stubs for key API routes in `src/lib/logging.ts` (or equivalent) and surface error toasts client-side.
-- [ ] T020 Configure weather refresh scheduling and environment wiring (`convex/jobs/weather.ts`, `vercel.json`, `.env.example`) for 6-hour revalidation.
+- [X] T018 Integrate Clerk session enforcement so only `/` and `/api/health` remain public (`middleware.ts`, middleware config, and API handlers).
+- [X] T019 Add lightweight structured logging stubs for key API routes in `src/lib/logging.ts` (or equivalent) and surface error messaging client-side.
+- [X] T020 Configure weather refresh scheduling and environment wiring (`convex/jobs/weather.ts`, `vercel.json`, `.env.example`) for 6-hour revalidation.
 
 ## Phase 3.4: Polish
 - [ ] T021 [P] Perform accessibility & performance spot checks on `app/(public)/*`, capturing follow-up notes in `docs/quickstart.md`.

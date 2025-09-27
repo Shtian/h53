@@ -1,12 +1,49 @@
-export default function HomePage() {
+"use client";
+
+import { Authenticated, Unauthenticated, useMutation } from "convex/react";
+import { SignInButton, UserButton } from "@clerk/nextjs";
+import { useQuery } from "convex/react";
+import { api } from "@/../convex/_generated/api";
+import { useState } from "react";
+
+export default function Home() {
   return (
-    <main className="flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center gap-6 p-8 text-center text-slate-50">
-      <span className="rounded-full bg-slate-800/60 px-4 py-1 text-xs uppercase tracking-widest">
-        Høgfjellia 53
-      </span>
-      <h1 className="text-4xl font-semibold md:text-6xl">
-        Velkommen til Høgfjellia 53
-      </h1>
-    </main>
+    <>
+      <Authenticated>
+        <UserButton />
+        <Content />
+      </Authenticated>
+      <Unauthenticated>
+        NOT AUTH
+        <SignInButton />
+      </Unauthenticated>
+    </>
+  );
+}
+
+function Content() {
+  const messages = useQuery(api.messages.getForCurrentUser);
+  const newMessage = useMutation(api.messages.postMessage);
+  const [message, setMessage] = useState("");
+  return (
+    <div className="space-y-8">
+      <div className="flex flex-col max-w-48 gap-4">
+        <input value={message} onChange={(e) => setMessage(e.target.value)} />
+        <button
+          onClick={(e) => {
+            newMessage({ message });
+            setMessage("");
+          }}
+        >
+          Add
+        </button>
+      </div>
+      <div>Authenticated content: {messages?.length}</div>
+      {messages?.length > 0
+        ? messages?.map((m) => {
+            return <p>{m.message}</p>;
+          })
+        : null}
+    </div>
   );
 }

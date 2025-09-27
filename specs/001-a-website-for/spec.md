@@ -72,7 +72,7 @@ As an H53 family member, I want to log in to the cabin website so I can post pho
 - **FR-003**: Authenticated family members MUST be able to create guestbook entries containing at least one photo and descriptive text.
 - **FR-004**: The guestbook MUST present entries to signed-in family members in chronological order with author attribution and timestamps.
 - **FR-005**: The site MUST provide a section of general information articles covering cabin usage and maintenance guidance.
-- **FR-006**: The system MUST allow authorized users to edit or remove their own guestbook entries.
+- **FR-006**: The system MUST allow authenticated users to edit or remove their own guestbook entries.
 - **FR-007**: Weather data MUST refresh at least every 6 hours using the yr.no API so the header reflects current cabin conditions.
 - **FR-008**: The system MUST notify users when uploads exceed 4MB or use unsupported formats and explain accepted formats (JPG, PNG, WebP, AVIF).
 - **FR-009**: The site MUST provide an accessible navigation structure so visitors can reach guestbook, information articles, and login from any page.

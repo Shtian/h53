@@ -4,6 +4,7 @@ export default authMiddleware({
   publicRoutes: [
     "/",
     "/api/health",
+    "/api/weather/refresh",
     "/_next/image",
     "/_next/static(.*)",
     "/favicon.ico",
