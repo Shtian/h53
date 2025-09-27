@@ -1,17 +1,11 @@
 <!--
 Sync Impact Report
-Version change: N/A → 1.0.0
+Version change: 1.0.0 → 1.1.0
 Modified principles:
-- N/A → Conventional Commit Cadence
-- N/A → TypeScript Everywhere
-- N/A → External Validation
-Added sections:
-- Technology Stack Guardrails
-- Development Workflow
+- Technology Stack Guardrails (Tailwind CSS-first requirement)
+Added sections: none
 Removed sections: none
-Templates requiring updates:
-- ✅ .specify/templates/plan-template.md
-- ✅ .specify/templates/tasks-template.md
+Templates requiring updates: none
 Follow-up TODOs: none
 -->
 
@@ -40,6 +34,7 @@ Follow-up TODOs: none
 ## Technology Stack Guardrails
 
 - Plan and task documents MUST highlight any deviation requests for governance review before execution.
+- Tailwind CSS styling MUST use the Tailwind v4 CSS-first configuration via in-file `@config` or theme directives; repositories MUST NOT include standalone `tailwind.config.*` files.
 
 ## Development Workflow
 
@@ -55,4 +50,4 @@ Follow-up TODOs: none
 - Compliance reviews: every plan.md and tasks.md MUST document principle adherence; reviewers MUST flag violations before merge.
 - Governance decisions and ratified amendments MUST live in repository history with traceable Conventional Commits.
 
-**Version**: 1.0.0 | **Ratified**: 2025-09-24 | **Last Amended**: 2025-09-24
+**Version**: 1.1.0 | **Ratified**: 2025-09-24 | **Last Amended**: 2025-09-24

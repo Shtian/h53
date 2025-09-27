@@ -1,0 +1,182 @@
+openapi: 3.1.0
+info:
+  title: H53 Cabin API
+  version: 0.2.0
+servers:
+  - url: https://h53.example.com/api
+    description: Production
+  - url: http://localhost:3000/api
+    description: Local development
+components:
+  securitySchemes:
+    sessionCookie:
+      type: apiKey
+      in: cookie
+      name: __session
+  schemas:
+    GuestbookEntry:
+      type: object
+      required: [id, title, caption, photoUrl, authorId, createdAt, updatedAt]
+      properties:
+        id: { type: string, format: uuid }
+        title: { type: string, maxLength: 120 }
+        caption: { type: string, maxLength: 1000 }
+        photoUrl: { type: string, format: uri }
+        photoAltText: { type: string }
+        tags:
+          type: array
+          items: { type: string }
+        visibility:
+          type: string
+          enum: [public, hidden]
+        authorId: { type: string, format: uuid }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+    Article:
+      type: object
+      required: [id, title, summary, category, contentMarkdown, updatedAt]
+      properties:
+        id: { type: string, format: uuid }
+        title: { type: string, maxLength: 120 }
+        summary: { type: string, maxLength: 280 }
+        contentMarkdown: { type: string }
+        category:
+          type: string
+          enum: [usage, maintenance, safety, history]
+        coverImageUrl: { type: string, format: uri, nullable: true }
+        publishedAt: { type: string, format: date-time, nullable: true }
+        updatedAt: { type: string, format: date-time }
+paths:
+  /guestbook:
+    get:
+      summary: List recent guestbook entries
+      security:
+        - sessionCookie: []
+      responses:
+        '200':
+          description: Guestbook entries
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GuestbookEntry'
+    post:
+      summary: Create a guestbook entry
+      security:
+        - sessionCookie: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [title, caption, photoUrl, photoStorageId]
+              properties:
+                title: { type: string, maxLength: 120 }
+                caption: { type: string, maxLength: 1000 }
+                photoUrl: { type: string, format: uri }
+                photoStorageId: { type: string }
+                photoAltText: { type: string }
+                tags:
+                  type: array
+                  items: { type: string }
+      responses:
+        '201':
+          description: Entry created
+  /guestbook/{entryId}:
+    patch:
+      summary: Update a guestbook entry
+      security:
+        - sessionCookie: []
+      parameters:
+        - name: entryId
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title: { type: string }
+                caption: { type: string }
+                visibility: { type: string, enum: [public, hidden] }
+                tags:
+                  type: array
+                  items: { type: string }
+      responses:
+        '200': { description: Entry updated }
+    delete:
+      summary: Delete a guestbook entry
+      security:
+        - sessionCookie: []
+      parameters:
+        - name: entryId
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        '204': { description: Entry deleted }
+  /articles:
+    get:
+      summary: List cabin articles
+      security:
+        - sessionCookie: []
+      parameters:
+        - name: category
+          in: query
+          schema: { type: string, enum: [usage, maintenance, safety, history] }
+      responses:
+        '200':
+          description: Articles
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Article'
+    post:
+      summary: Create or update an article
+      security:
+        - sessionCookie: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [title, summary, contentMarkdown, category]
+              properties:
+                articleId: { type: string, nullable: true }
+                title: { type: string }
+                summary: { type: string }
+                contentMarkdown: { type: string }
+                category: { type: string, enum: [usage, maintenance, safety, history] }
+                coverImageUrl: { type: string, format: uri, nullable: true }
+                coverImageStorageId: { type: string, nullable: true }
+                publish: { type: boolean }
+      responses:
+        '200': { description: Article saved }
+  /articles/{articleId}:
+    get:
+      summary: Retrieve a single article
+      security:
+        - sessionCookie: []
+      parameters:
+        - name: articleId
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        '200':
+          description: Article detail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Article'
+        '404': { description: Not Found }
+security:
+  - sessionCookie: []
