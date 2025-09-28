@@ -1,45 +1,62 @@
-import type { Metadata } from "next";
 import Link from "next/link";
+import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 
-function loadArticle(articleId: string) {
-  return {
-    _id: "abc",
-    summary: "Badstue guide",
-    title: "Badstue",
-    updatedAt: new Date().getTime().toString(),
-  };
+import {
+  getArticleContent,
+  loadArticleSlugs,
+} from "@/lib/articles";
+import { markdownToHtml } from "@/lib/articles/markdown";
+
+export async function generateStaticParams() {
+  const slugs = await loadArticleSlugs();
+  return slugs.map((slug) => ({ articleId: slug }));
 }
+
+type ArticlePageParams = { articleId: string };
 
 export async function generateMetadata({
   params,
 }: {
-  params: { articleId: string };
+  params: Promise<ArticlePageParams>;
 }): Promise<Metadata> {
-  const article = loadArticle(params.articleId);
+  const { articleId } = await params;
+  const article = await getArticleContent(articleId);
+  if (!article) {
+    return {
+      title: "Article · H53 Cabin",
+    };
+  }
+
   return {
-    title: article ? `${article.title} · H53 Cabin` : "Article · H53 Cabin",
-  };
+    title: `${article.frontmatter.title} · H53 Cabin`,
+    description: article.frontmatter.summary,
+  } satisfies Metadata;
 }
 
 export default async function ArticleDetailPage({
   params,
 }: {
-  params: { articleId: string };
+  params: Promise<ArticlePageParams>;
 }) {
-  const article = loadArticle(params.articleId);
+  const { articleId } = await params;
+  const article = await getArticleContent(articleId);
+
+  if (!article) {
+    notFound();
+  }
+
+  const html = markdownToHtml(article.body);
 
   return (
     <div className="mx-auto flex max-w-3xl flex-col gap-6 px-6 py-12 text-slate-50">
       <Link
-        className="text-sm text-slate-300 hover:text-white"
+        className="text-sm text-slate-300 transition hover:text-white"
         href="/articles"
       >
         ← Back to articles
       </Link>
-      <div className="space-y-3"></div>
-      <article className="prose prose-invert max-w-none">
-        <h1>{article.title}</h1>
-      </article>
+      <article className="prose prose-slate lg:prose-xl prose-invert max-w-none" dangerouslySetInnerHTML={{ __html: html }} />
     </div>
   );
 }

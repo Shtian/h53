@@ -20,3 +20,5 @@ export function formatWeatherSummary(snapshot: WeatherSnapshot | null | undefine
   const rounded = Math.round(snapshot.temperatureC * 10) / 10;
   return `${rounded.toFixed(1)}°C · ${snapshot.condition}`;
 }
+
+export type { WeatherBannerState } from "./state";

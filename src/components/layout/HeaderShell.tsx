@@ -4,6 +4,7 @@ import { useState, type CSSProperties } from "react";
 
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import Link from "next/link";
+import { AlertTriangle } from "lucide-react";
 
 import {
   Drawer,
@@ -12,15 +13,17 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
+import type { WeatherBannerState } from "@/lib/weather/state";
 
 type HeaderShellProps = {
-  weatherSummary: string;
+  weather: WeatherBannerState;
 };
 
 const HEADER_STYLE = { "--header-height": "4rem" } as CSSProperties;
 
-export function HeaderShell({ weatherSummary }: HeaderShellProps) {
+export function HeaderShell({ weather }: HeaderShellProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -43,7 +46,7 @@ export function HeaderShell({ weatherSummary }: HeaderShellProps) {
               Meny
             </Button>
           </DrawerTrigger>
-          <DrawerContent className="min-h-[50svh] p-0 bg-slate-900 text-slate-400 border-none">
+          <DrawerContent className="min-h-[50svh] border-none bg-slate-900 p-0 text-slate-400">
             <div
               id="header-mobile-drawer"
               className="flex h-full flex-col overflow-auto p-6"
@@ -83,7 +86,7 @@ export function HeaderShell({ weatherSummary }: HeaderShellProps) {
         </Drawer>
         <Link
           href="/"
-          className="hidden md:flex items-center gap-2 text-sm font-semibold uppercase tracking-widest"
+          className="hidden items-center gap-2 text-sm font-semibold uppercase tracking-widest md:flex"
         >
           <span className="rounded bg-slate-800 px-2 py-1">H53</span>
         </Link>
@@ -97,9 +100,31 @@ export function HeaderShell({ weatherSummary }: HeaderShellProps) {
         </nav>
       </div>
       <div className="flex items-center gap-4 text-sm">
-        <span className="rounded-full bg-slate-800/60 px-3 py-1 inline">
-          {weatherSummary}
-        </span>
+        {weather.kind === "success" ? (
+          <span className="inline rounded-full bg-slate-800/60 px-3 py-1">
+            {weather.summary}
+          </span>
+        ) : (
+          <Popover>
+            <PopoverTrigger asChild>
+              <button
+                type="button"
+                aria-label="Weather information unavailable"
+                className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-amber-500/20 text-amber-300 transition hover:bg-amber-500/30"
+              >
+                <AlertTriangle className="h-4 w-4" aria-hidden="true" />
+              </button>
+            </PopoverTrigger>
+            <PopoverContent
+              side="bottom"
+              align="end"
+              className="w-64 rounded-xl border border-slate-700/60 bg-slate-900/95 p-4 text-left text-sm text-slate-100 shadow-lg"
+            >
+              <p className="font-semibold text-amber-300">Været er utilgjengelig</p>
+              <p className="mt-2 text-slate-200">{weather.message}</p>
+            </PopoverContent>
+          </Popover>
+        )}
         <SignedIn>
           <UserButton />
         </SignedIn>

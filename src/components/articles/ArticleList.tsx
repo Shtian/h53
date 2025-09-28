@@ -1,44 +1,38 @@
-"use client";
+import Link from "next/link";
 
-type Article = {
-  _id: string;
-  title: string;
-  summary: string;
-  publishedAt?: string;
-  updatedAt: string;
+import type { ArticleSummary } from "@/lib/articles/content";
+
+type ArticleListProps = {
+  articles: ArticleSummary[];
 };
 
-export function ArticleList() {
-  const articles: Article[] = [
-    {
-      _id: "abc",
-      summary: "Badstue guide",
-      title: "Badstue",
-      updatedAt: new Date().getTime().toString(),
-    },
-  ];
-
+export function ArticleList({ articles }: ArticleListProps) {
   return (
     <div className="space-y-6">
       {articles.map((article) => (
         <article
-          key={article._id}
-          className="rounded-3xl border border-slate-200/70 bg-white/95 p-6 shadow-lg shadow-slate-900/10"
+          key={article.slug}
+          className="rounded-3xl border border-slate-200/10 bg-slate-900/60 p-6 shadow-lg shadow-slate-900/20 transition hover:border-slate-200/40"
         >
-          <div className="flex flex-wrap items-center justify-between gap-2 text-xs uppercase tracking-widest text-slate-500">
+          <div className="flex flex-wrap items-center justify-between gap-2 text-xs uppercase tracking-widest text-slate-400">
             <span>
-              {(article.publishedAt ?? article.updatedAt) &&
-                new Date(
-                  article.publishedAt ?? article.updatedAt
-                ).toLocaleDateString()}
+              {new Date(article.publishedAt).toLocaleDateString("nb-NO", {
+                year: "numeric",
+                month: "short",
+                day: "2-digit",
+              })}
             </span>
           </div>
-          <h3 className="mt-3 text-2xl font-semibold text-slate-900">
-            {article.title}
+          <h3 className="mt-3 text-2xl font-semibold text-white">
+            <Link href={`/articles/${article.slug}`} className="hover:underline">
+              {article.title}
+            </Link>
           </h3>
-          <p className="mt-2 text-sm leading-relaxed text-slate-600">
-            {article.summary}
-          </p>
+          {article.summary ? (
+            <p className="mt-3 text-sm leading-relaxed text-slate-300">
+              {article.summary}
+            </p>
+          ) : null}
         </article>
       ))}
     </div>
