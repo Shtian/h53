@@ -1,6 +1,10 @@
+import { translateWeatherSymbol } from "./labels";
+
 export type WeatherSnapshot = {
   temperatureC: number;
   condition: string;
+  windSpeed?: number | null;
+  precipitation?: number | null;
   capturedAt?: string;
   expiresAt?: string;
 };
@@ -20,7 +24,8 @@ export function formatWeatherSummary(
   }
 
   const rounded = Math.round(snapshot.temperatureC * 10) / 10;
-  return `${rounded.toFixed(1)}°C · ${snapshot.condition}`;
+  const label = translateWeatherSymbol(snapshot.condition);
+  return `${rounded.toFixed(1)}°C · ${label}`;
 }
 
 export type { WeatherBannerState } from "./state";

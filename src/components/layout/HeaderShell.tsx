@@ -1,6 +1,7 @@
 "use client";
 
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
+import { Droplets, Wind } from "lucide-react";
 import Link from "next/link";
 import { type CSSProperties, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -30,6 +31,11 @@ const temperatureFormatter = new Intl.NumberFormat("nb-NO", {
   maximumFractionDigits: 1,
 });
 
+const weatherStatFormatter = new Intl.NumberFormat("nb-NO", {
+  minimumFractionDigits: 1,
+  maximumFractionDigits: 1,
+});
+
 export function HeaderShell({ weather }: HeaderShellProps) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -46,9 +52,11 @@ export function HeaderShell({ weather }: HeaderShellProps) {
       : null;
 
   const conditionLabel =
-    weather.kind === "success"
-      ? weather.condition.replace(/_/g, " ")
-      : weather.message;
+    weather.kind === "success" ? weather.condition : weather.message;
+
+  const precipitationValue =
+    weather.kind === "success" ? weather.precipitation : null;
+  const windSpeedValue = weather.kind === "success" ? weather.windSpeed : null;
 
   return (
     <header
@@ -155,9 +163,30 @@ export function HeaderShell({ weather }: HeaderShellProps) {
             className="w-64 rounded-xl border border-slate-700/60 bg-slate-900/95 p-4 text-left text-sm text-slate-100 shadow-lg"
           >
             {weather.kind === "success" ? (
-              <p className="font-semibold text-slate-100 capitalize">
-                {conditionLabel}
-              </p>
+              <div className="space-y-3">
+                <div className="flex items-center gap-2 font-semibold text-slate-100">
+                  <Icon className="h-5 w-5" aria-hidden="true" />
+                  <span className="capitalize">{conditionLabel}</span>
+                </div>
+                <ul className="space-y-2 text-slate-300">
+                  <li className="flex items-center gap-2">
+                    <Droplets className="h-4 w-4" aria-hidden="true" />
+                    <span>
+                      {typeof precipitationValue === "number"
+                        ? `${weatherStatFormatter.format(precipitationValue)} mm nedbør`
+                        : "Nedbør utilgjengelig"}
+                    </span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Wind className="h-4 w-4" aria-hidden="true" />
+                    <span>
+                      {typeof windSpeedValue === "number"
+                        ? `${weatherStatFormatter.format(windSpeedValue)} m/s vind`
+                        : "Vind utilgjengelig"}
+                    </span>
+                  </li>
+                </ul>
+              </div>
             ) : (
               <>
                 <p className="font-semibold text-amber-300">

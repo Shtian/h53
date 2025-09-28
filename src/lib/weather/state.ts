@@ -1,3 +1,4 @@
+import { translateWeatherSymbol } from "@/lib/weather/labels";
 import type { WeatherSnapshot } from "@/lib/weather/types";
 import { WEATHER_UNAVAILABLE_LABEL } from "@/lib/weather/types";
 
@@ -7,6 +8,8 @@ export type WeatherBannerState =
       temperatureC: number;
       symbol: string;
       condition: string;
+      windSpeed: number | null;
+      precipitation: number | null;
     }
   | {
       kind: "error";
@@ -40,6 +43,8 @@ export function weatherSuccessState(
     kind: "success",
     temperatureC: snapshot.temperatureC,
     symbol: snapshot.condition,
-    condition: snapshot.condition,
+    condition: translateWeatherSymbol(snapshot.condition),
+    windSpeed: snapshot.windSpeed ?? null,
+    precipitation: snapshot.precipitation ?? null,
   } satisfies WeatherBannerState;
 }

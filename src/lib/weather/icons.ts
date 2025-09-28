@@ -18,7 +18,7 @@ import {
   SunSnow,
 } from "lucide-react";
 
-const YRNO_SYMBOL_CODES = [
+export const YRNO_SYMBOL_CODES = [
   "clearsky_day",
   "clearsky_night",
   "clearsky_polartwilight",
@@ -111,7 +111,7 @@ const SYMBOL_LOOKUP = new Set<string>(YRNO_SYMBOL_CODES);
 const DEFAULT_ICON: LucideIcon = Minus;
 export const ERROR_ICON: LucideIcon = Minus;
 
-function isYrNoSymbolCode(value: string): value is YrNoSymbolCode {
+export function isYrNoSymbolCode(value: string): value is YrNoSymbolCode {
   return SYMBOL_LOOKUP.has(value as YrNoSymbolCode);
 }
 
