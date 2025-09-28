@@ -1,5 +1,5 @@
-import { ReactNode } from "react";
-
+import Image from "next/image";
+import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 type MemoryCardProps = {
@@ -32,7 +32,7 @@ export function MemoryCard({ memory, actions, className }: MemoryCardProps) {
       )}
     >
       <div className="aspect-[4/3] overflow-hidden">
-        <img
+        <Image
           src={memory.photoUrl}
           alt={memory.photoAltText ?? memory.title}
           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
@@ -48,10 +48,14 @@ export function MemoryCard({ memory, actions, className }: MemoryCardProps) {
               {memory.title}
             </h3>
             {memory.authorName ? (
-              <p className="text-xs text-slate-500">Shared by {memory.authorName}</p>
+              <p className="text-xs text-slate-500">
+                Shared by {memory.authorName}
+              </p>
             ) : null}
           </div>
-          {actions ? <div className="shrink-0 text-right">{actions}</div> : null}
+          {actions ? (
+            <div className="shrink-0 text-right">{actions}</div>
+          ) : null}
         </header>
         {memory.description ? (
           <p className="text-sm leading-relaxed text-slate-600">

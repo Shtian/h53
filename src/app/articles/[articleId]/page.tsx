@@ -1,11 +1,8 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import type { Metadata } from "next";
 
-import {
-  getArticleContent,
-  loadArticleSlugs,
-} from "@/lib/articles";
+import { getArticleContent, loadArticleSlugs } from "@/lib/articles";
 import { markdownToHtml } from "@/lib/articles/markdown";
 
 export async function generateStaticParams() {
@@ -56,7 +53,11 @@ export default async function ArticleDetailPage({
       >
         ← Back to articles
       </Link>
-      <article className="prose prose-slate lg:prose-xl prose-invert max-w-none" dangerouslySetInnerHTML={{ __html: html }} />
+      <article
+        className="prose prose-slate lg:prose-xl prose-invert max-w-none"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: markdown content
+        dangerouslySetInnerHTML={{ __html: html }}
+      />
     </div>
   );
 }

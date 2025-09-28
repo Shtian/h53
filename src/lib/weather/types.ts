@@ -12,7 +12,9 @@ export const WEATHER_FALLBACK: WeatherSnapshot = {
   condition: WEATHER_UNAVAILABLE_LABEL,
 };
 
-export function formatWeatherSummary(snapshot: WeatherSnapshot | null | undefined) {
+export function formatWeatherSummary(
+  snapshot: WeatherSnapshot | null | undefined,
+) {
   if (!snapshot || Number.isNaN(snapshot.temperatureC)) {
     return WEATHER_UNAVAILABLE_LABEL;
   }

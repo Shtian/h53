@@ -1,8 +1,7 @@
 import { preloadQuery } from "convex/nextjs";
-
-import { GuestbookClient } from "./GuestbookClient";
 import { api } from "@/../convex/_generated/api";
 import { getAuthToken } from "@/lib/auth/clerk";
+import { GuestbookClient } from "./GuestbookClient";
 
 export const metadata = {
   title: "H53 Guestbook",

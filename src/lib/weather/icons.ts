@@ -243,7 +243,7 @@ function mapSymbolToIcon(symbol: YrNoSymbolCode): LucideIcon {
 }
 
 export function resolveWeatherIcon(
-  symbolCode: string | null | undefined
+  symbolCode: string | null | undefined,
 ): LucideIcon {
   if (!symbolCode) {
     return DEFAULT_ICON;

@@ -1,14 +1,17 @@
 import { v } from "convex/values";
-
-import { MutationCtx, QueryCtx, mutation, query } from "./_generated/server";
-import { Id } from "./_generated/dataModel";
-
 import {
-  GuestbookEntryCreateInput,
-  GuestbookEntryUpdateInput,
+  type GuestbookEntryCreateInput,
+  type GuestbookEntryUpdateInput,
   guestbookEntryCreateSchema,
   guestbookEntryUpdateSchema,
 } from "../src/lib/validation";
+import type { Id } from "./_generated/dataModel";
+import {
+  type MutationCtx,
+  mutation,
+  type QueryCtx,
+  query,
+} from "./_generated/server";
 
 async function requireIdentity(ctx: MutationCtx | QueryCtx) {
   const identity = await ctx.auth.getUserIdentity();

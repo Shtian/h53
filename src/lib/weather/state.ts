@@ -33,7 +33,9 @@ export function weatherErrorState(message?: string): WeatherBannerState {
   } satisfies WeatherBannerState;
 }
 
-export function weatherSuccessState(snapshot: WeatherSnapshot): WeatherBannerState {
+export function weatherSuccessState(
+  snapshot: WeatherSnapshot,
+): WeatherBannerState {
   return {
     kind: "success",
     temperatureC: snapshot.temperatureC,

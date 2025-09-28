@@ -34,5 +34,9 @@ export const guestbookEntryUpdateSchema = z
     },
   );
 
-export type GuestbookEntryCreateInput = z.infer<typeof guestbookEntryCreateSchema>;
-export type GuestbookEntryUpdateInput = z.infer<typeof guestbookEntryUpdateSchema>;
+export type GuestbookEntryCreateInput = z.infer<
+  typeof guestbookEntryCreateSchema
+>;
+export type GuestbookEntryUpdateInput = z.infer<
+  typeof guestbookEntryUpdateSchema
+>;

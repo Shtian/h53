@@ -1,13 +1,12 @@
 import "server-only";
 
 import { unstable_cache } from "next/cache";
-
-import { fetchYrNoSnapshot } from "@/lib/weather/fetchYrNo";
 import { logEvent } from "@/lib/logging";
+import { fetchYrNoSnapshot } from "@/lib/weather/fetchYrNo";
 import {
   toWeatherBannerState,
-  weatherErrorState,
   type WeatherBannerState,
+  weatherErrorState,
 } from "@/lib/weather/state";
 import { WEATHER_UNAVAILABLE_LABEL } from "@/lib/weather/types";
 

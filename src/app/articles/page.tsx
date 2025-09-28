@@ -15,18 +15,20 @@ export default async function ArticlesPage() {
       <header className="space-y-3">
         <h1 className="text-4xl font-semibold">Usage & maintenance guides</h1>
         <p className="max-w-2xl text-sm text-slate-300">
-          Keep the cabin running smoothly with curated notes on cleaning routines, seasonal
-          shut-downs, and safety tips.
+          Keep the cabin running smoothly with curated notes on cleaning
+          routines, seasonal shut-downs, and safety tips.
         </p>
       </header>
       {articles.length > 0 ? (
         <ArticleList articles={articles} />
       ) : (
         <div className="rounded-3xl border border-slate-200/10 bg-slate-900/50 p-10 text-center">
-          <h2 className="text-2xl font-semibold text-white">Ingen artikler publisert ennå</h2>
+          <h2 className="text-2xl font-semibold text-white">
+            Ingen artikler publisert ennå
+          </h2>
           <p className="mt-3 text-sm text-slate-300">
-            Redaktørteamet jobber med å fylle opp kunnskapsbasen. I mellomtiden finner du viktig
-            informasjon på forsiden.
+            Redaktørteamet jobber med å fylle opp kunnskapsbasen. I mellomtiden
+            finner du viktig informasjon på forsiden.
           </p>
           <Link
             href="/"

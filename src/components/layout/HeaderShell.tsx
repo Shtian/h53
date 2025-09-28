@@ -1,10 +1,9 @@
 "use client";
 
-import { useMemo, useState, type CSSProperties } from "react";
-
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import Link from "next/link";
-
+import { type CSSProperties, useMemo, useState } from "react";
+import { Button } from "@/components/ui/button";
 import {
   Drawer,
   DrawerClose,
@@ -12,8 +11,11 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Button } from "@/components/ui/button";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { ERROR_ICON, resolveWeatherIcon } from "@/lib/weather/icons";
 import type { WeatherBannerState } from "@/lib/weather/state";
 
@@ -88,20 +90,22 @@ export function HeaderShell({ weather }: HeaderShellProps) {
                 </DrawerClose>
               </div>
               <nav className="mt-8 flex flex-col gap-6 text-lg">
-                <Link
-                  href="/guestbook"
-                  onClick={() => setIsOpen(false)}
-                  className="uppercase tracking-widest text-slate-300 transition hover:text-white"
-                >
-                  Gjestebok
-                </Link>
-                <Link
-                  href="/articles"
-                  onClick={() => setIsOpen(false)}
-                  className="uppercase tracking-widest text-slate-300 transition hover:text-white"
-                >
-                  Informasjon
-                </Link>
+                <SignedIn>
+                  <Link
+                    href="/guestbook"
+                    onClick={() => setIsOpen(false)}
+                    className="uppercase tracking-widest text-slate-300 transition hover:text-white"
+                  >
+                    Bildebok
+                  </Link>
+                  <Link
+                    href="/articles"
+                    onClick={() => setIsOpen(false)}
+                    className="uppercase tracking-widest text-slate-300 transition hover:text-white"
+                  >
+                    Informasjon
+                  </Link>
+                </SignedIn>
               </nav>
             </div>
           </DrawerContent>
@@ -113,12 +117,14 @@ export function HeaderShell({ weather }: HeaderShellProps) {
           <span className="rounded bg-slate-800 px-2 py-1">H53</span>
         </Link>
         <nav className="hidden gap-4 text-sm text-slate-300 md:flex">
-          <Link className="hover:text-white" href="/guestbook">
-            Guestbook
-          </Link>
-          <Link className="hover:text-white" href="/articles">
-            Articles
-          </Link>
+          <SignedIn>
+            <Link className="hover:text-white" href="/guestbook">
+              Bildebok
+            </Link>
+            <Link className="hover:text-white" href="/articles">
+              Informasjon
+            </Link>
+          </SignedIn>
         </nav>
       </div>
       <div className="flex items-center gap-4 text-sm">
@@ -154,7 +160,9 @@ export function HeaderShell({ weather }: HeaderShellProps) {
               </p>
             ) : (
               <>
-                <p className="font-semibold text-amber-300">Været er utilgjengelig</p>
+                <p className="font-semibold text-amber-300">
+                  Været er utilgjengelig
+                </p>
                 <p className="mt-2 text-slate-200">{conditionLabel}</p>
               </>
             )}

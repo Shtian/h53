@@ -1,11 +1,11 @@
 "use client";
 
-import { AddEntryButton } from "./AddEntryButton";
-import { EditMemoryDialog } from "./EditMemoryDialog";
+import type { Preloaded } from "convex/react";
 import { GuestbookGrid } from "@/components/guestbook/GuestbookGrid";
 import { Button } from "@/components/ui/button";
-import { Preloaded } from "convex/react";
-import { api } from "../../../convex/_generated/api";
+import type { api } from "../../../convex/_generated/api";
+import { AddEntryButton } from "./AddEntryButton";
+import { EditMemoryDialog } from "./EditMemoryDialog";
 
 type GuestbookClientProps = {
   initialEntries: Preloaded<typeof api.guestbook.list>;

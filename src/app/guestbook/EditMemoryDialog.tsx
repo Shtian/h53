@@ -1,9 +1,11 @@
 "use client";
 
-import { FormEvent, ReactNode, useMemo, useState } from "react";
+import { useMutation } from "convex/react";
 import { Loader2, Trash2 } from "lucide-react";
+import { type FormEvent, type ReactNode, useMemo, useState } from "react";
 import { toast } from "sonner";
-
+import { api } from "@/../convex/_generated/api";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -13,15 +15,12 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { useMutation } from "convex/react";
-import { api } from "@/../convex/_generated/api";
+import { logEvent } from "@/lib/logging";
 import type { GuestbookEntry } from "@/lib/types";
 import {
-  guestbookEntryUpdateSchema,
   type GuestbookEntryUpdateInput,
+  guestbookEntryUpdateSchema,
 } from "@/lib/validation";
-import { logEvent } from "@/lib/logging";
 
 const MAX_FILE_SIZE_BYTES = 10 * 1024 * 1024;
 const ACCEPTED_FILE_TYPES = ["image/jpeg", "image/png"];
@@ -204,7 +203,10 @@ export function EditMemoryDialog({ entry, children }: EditMemoryDialogProps) {
         </DialogHeader>
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div className="space-y-2">
-            <label className="text-sm font-medium text-slate-700" htmlFor="edit-photo">
+            <label
+              className="text-sm font-medium text-slate-700"
+              htmlFor="edit-photo"
+            >
               Photo
             </label>
             <input
@@ -219,7 +221,10 @@ export function EditMemoryDialog({ entry, children }: EditMemoryDialogProps) {
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm font-medium text-slate-700" htmlFor="edit-title">
+            <label
+              className="text-sm font-medium text-slate-700"
+              htmlFor="edit-title"
+            >
               Title
             </label>
             <input

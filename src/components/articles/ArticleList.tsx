@@ -24,7 +24,10 @@ export function ArticleList({ articles }: ArticleListProps) {
             </span>
           </div>
           <h3 className="mt-3 text-2xl font-semibold text-white">
-            <Link href={`/articles/${article.slug}`} className="hover:underline">
+            <Link
+              href={`/articles/${article.slug}`}
+              className="hover:underline"
+            >
               {article.title}
             </Link>
           </h3>

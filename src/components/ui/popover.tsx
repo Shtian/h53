@@ -10,7 +10,10 @@ const PopoverAnchor = PopoverPrimitive.Anchor;
 const PopoverContent = PopoverPrimitive.Content;
 const PopoverPortal = PopoverPrimitive.Portal;
 
-function PopoverArrow({ className, ...props }: PopoverPrimitive.PopoverArrowProps) {
+function PopoverArrow({
+  className,
+  ...props
+}: PopoverPrimitive.PopoverArrowProps) {
   return (
     <PopoverPrimitive.Arrow
       className={cn("fill-slate-800/80 drop-shadow", className)}

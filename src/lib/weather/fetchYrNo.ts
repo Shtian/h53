@@ -1,9 +1,9 @@
+import { logEvent } from "@/lib/logging";
 import {
   WEATHER_FALLBACK,
   WEATHER_UNAVAILABLE_LABEL,
   type WeatherSnapshot,
 } from "./types";
-import { logEvent } from "@/lib/logging";
 
 const COORDINATES = process.env.YRNO_COORDINATES ?? "61.17553,10.63208";
 
@@ -39,7 +39,7 @@ type YrNoSnapshot = WeatherSnapshot & {
 
 export async function fetchYrNoSnapshot(): Promise<YrNoSnapshot> {
   const [latitude, longitude] = COORDINATES.split(",").map((value) =>
-    value.trim()
+    value.trim(),
   );
   const url = `https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=${latitude}&lon=${longitude}`;
 
@@ -83,7 +83,9 @@ export async function fetchYrNoSnapshot(): Promise<YrNoSnapshot> {
 
   const capturedAt = latest.time;
   const expiresAt = capturedAt
-    ? new Date(new Date(capturedAt).getTime() + 6 * 60 * 60 * 1000).toISOString()
+    ? new Date(
+        new Date(capturedAt).getTime() + 6 * 60 * 60 * 1000,
+      ).toISOString()
     : undefined;
 
   if (typeof airTemperature !== "number") {

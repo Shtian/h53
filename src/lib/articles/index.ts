@@ -1,20 +1,19 @@
 import "server-only";
 
-import { promises as fs, statSync } from "fs";
-import path from "path";
-
-import { logEvent } from "@/lib/logging";
+import { promises as fs, statSync } from "node:fs";
+import path from "node:path";
 import {
-  validateArticleFrontmatter,
-  type ArticleFrontmatter,
-} from "@/lib/articles/frontmatter";
-import {
+  type ArticleContent,
+  type ArticleSummary,
   sortArticleSummaries,
   toArticleSummary,
   validateArticleContent,
-  type ArticleContent,
-  type ArticleSummary,
 } from "@/lib/articles/content";
+import {
+  type ArticleFrontmatter,
+  validateArticleFrontmatter,
+} from "@/lib/articles/frontmatter";
+import { logEvent } from "@/lib/logging";
 
 const ARTICLES_DIR = path.join(process.cwd(), "content", "articles");
 
@@ -68,7 +67,7 @@ function parseFrontmatterBlock(block: string): Record<string, unknown> {
     const [key, ...rest] = line.split(":");
     if (!key || rest.length === 0) continue;
     const rawValue = rest.join(":").trim();
-    const trimmed = rawValue.replace(/^['\"]|['\"]$/g, "");
+    const trimmed = rawValue.replace(/^['"]|['"]$/g, "");
     if (trimmed === "true" || trimmed === "false") {
       result[key.trim()] = trimmed === "true";
       continue;
@@ -122,7 +121,9 @@ export async function loadAllArticles(): Promise<ArticleContent[]> {
     return [];
   }
 
-  const articles = await Promise.all(filenames.map((filename) => parseArticleFile(filename)));
+  const articles = await Promise.all(
+    filenames.map((filename) => parseArticleFile(filename)),
+  );
   return articles;
 }
 
@@ -132,7 +133,9 @@ export async function loadArticleSummaries(): Promise<ArticleSummary[]> {
   return sortArticleSummaries(summaries);
 }
 
-export async function loadArticleBySlug(slug: string): Promise<ArticleContent | null> {
+export async function loadArticleBySlug(
+  slug: string,
+): Promise<ArticleContent | null> {
   const targetFile = `${slug}.md`;
   const filenames = await readArticleFilenames();
   if (!filenames.includes(targetFile)) {
@@ -151,7 +154,9 @@ export async function getOrderedArticleSummaries(): Promise<ArticleSummary[]> {
   return loadArticleSummaries();
 }
 
-export async function getArticleContent(slug: string): Promise<ArticleContent | null> {
+export async function getArticleContent(
+  slug: string,
+): Promise<ArticleContent | null> {
   try {
     const article = await loadArticleBySlug(slug);
     return article;

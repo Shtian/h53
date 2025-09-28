@@ -1,13 +1,12 @@
 "use client";
 
-import { ReactNode } from "react";
-
-import { Preloaded, usePreloadedQuery } from "convex/react";
-import { api } from "@/../convex/_generated/api";
+import { type Preloaded, usePreloadedQuery } from "convex/react";
+import type { ReactNode } from "react";
+import type { api } from "@/../convex/_generated/api";
 
 import { MemoryCard } from "@/components/guestbook/MemoryCard";
-import type { GuestbookEntry } from "@/lib/types";
 import { Skeleton } from "@/components/ui/skeleton";
+import type { GuestbookEntry } from "@/lib/types";
 
 type GuestbookGridProps = {
   actions?: (entry: GuestbookEntry) => ReactNode;
@@ -21,6 +20,7 @@ export function GuestbookGrid({ actions, initialEntries }: GuestbookGridProps) {
     return (
       <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
         {Array.from({ length: 3 }).map((_, index) => (
+          // biome-ignore lint/suspicious/noArrayIndexKey: SkeletonLoader
           <Skeleton key={index} className="h-[320px] rounded-2xl" />
         ))}
       </div>

@@ -1,8 +1,8 @@
 import { z } from "zod";
 
 import {
-  ArticleFrontmatterSchema,
   type ArticleFrontmatter,
+  ArticleFrontmatterSchema,
 } from "@/lib/articles/frontmatter";
 
 export const ArticleContentSchema = z.object({

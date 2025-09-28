@@ -24,7 +24,10 @@ const orderField = z
   );
 
 export const ArticleFrontmatterSchema = z.object({
-  title: z.string().min(1, "title is required").max(160, "title must be 160 characters or less"),
+  title: z
+    .string()
+    .min(1, "title is required")
+    .max(160, "title must be 160 characters or less"),
   publishedAt: isoDateString,
   order: orderField,
   summary: z
