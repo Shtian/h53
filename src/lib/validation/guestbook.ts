@@ -1,5 +1,12 @@
 import { z } from "zod";
 
+import type { Id } from "@/../convex/_generated/dataModel";
+
+const guestbookEntryIdSchema = z
+  .string()
+  .min(1, "Memory id is required")
+  .transform((value) => value as Id<"guestbookEntries">);
+
 export const guestbookEntryCreateSchema = z.object({
   title: z.string().min(3).max(120),
   description: z.string().max(1000).optional(),
@@ -9,7 +16,7 @@ export const guestbookEntryCreateSchema = z.object({
 
 export const guestbookEntryUpdateSchema = z
   .object({
-    id: z.string(),
+    id: guestbookEntryIdSchema,
     title: z.string().min(3).max(120).optional(),
     description: z.string().max(1000).optional(),
     imageStorageId: z.string().min(1).optional(),

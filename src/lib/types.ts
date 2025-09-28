@@ -1,3 +1,5 @@
+import type { Id } from "@/../convex/_generated/dataModel";
+
 export interface FamilyMember {
   id: string;
   clerkUserId: string;
@@ -10,7 +12,7 @@ export interface FamilyMember {
 }
 
 export interface GuestbookEntry {
-  id: string;
+  id: Id<"guestbookEntries">;
   authorClerkId: string;
   authorName?: string;
   authorImageUrl?: string;

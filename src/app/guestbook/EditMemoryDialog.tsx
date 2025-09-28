@@ -16,7 +16,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { useMutation } from "convex/react";
 import { api } from "@/../convex/_generated/api";
-import type { Id } from "@/../convex/_generated/dataModel";
 import type { GuestbookEntry } from "@/lib/types";
 import {
   guestbookEntryUpdateSchema,
@@ -109,7 +108,7 @@ export function EditMemoryDialog({ entry, children }: EditMemoryDialogProps) {
 
     const updates: GuestbookEntryUpdateInput = {
       id: entry.id,
-    } as GuestbookEntryUpdateInput;
+    };
 
     if (title !== entry.title) {
       updates.title = title;
@@ -178,7 +177,7 @@ export function EditMemoryDialog({ entry, children }: EditMemoryDialogProps) {
 
     try {
       setIsDeleting(true);
-      await deleteMemory({ id: entry.id as Id<"guestbookEntries"> });
+      await deleteMemory({ id: entry.id });
       logEvent("guestbook.delete.success", { entryId: entry.id });
       toast.success("Memory deleted");
       handleDialogChange(false);
