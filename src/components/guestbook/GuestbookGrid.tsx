@@ -1,56 +1,46 @@
 "use client";
 
-type GuestbookEntry = {
-  _id: string;
-  title: string;
-  caption: string;
-  photoUrl: string;
-  tags?: string[];
-  createdAt: string;
+import { ReactNode } from "react";
+
+import { Preloaded, usePreloadedQuery } from "convex/react";
+import { api } from "@/../convex/_generated/api";
+
+import { MemoryCard } from "@/components/guestbook/MemoryCard";
+import type { GuestbookEntry } from "@/lib/types";
+import { Skeleton } from "@/components/ui/skeleton";
+
+type GuestbookGridProps = {
+  actions?: (entry: GuestbookEntry) => ReactNode;
+  initialEntries?: Preloaded<typeof api.guestbook.list>;
 };
 
-export function GuestbookGrid() {
-  const entries: GuestbookEntry[] = [
-    {
-      _id: "abc",
-      caption: "kult",
-      createdAt: new Date().getTime + "",
-      photoUrl: "https://placehold.co/600x400",
-      title: "Påske",
-    },
-  ];
+export function GuestbookGrid({ actions, initialEntries }: GuestbookGridProps) {
+  const data = usePreloadedQuery(initialEntries);
+
+  if (!data) {
+    return (
+      <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+        {Array.from({ length: 3 }).map((_, index) => (
+          <Skeleton key={index} className="h-[320px] rounded-2xl" />
+        ))}
+      </div>
+    );
+  }
+
+  if (data.length === 0) {
+    return (
+      <div className="rounded-2xl border border-slate-700/40 bg-slate-900/40 p-10 text-center">
+        <p className="text-base font-medium text-slate-100">
+          No memories yet. Be the first to add one!
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-      {entries.map((entry) => (
-        <article
-          key={entry._id}
-          className="overflow-hidden rounded-2xl bg-white/90 shadow-lg shadow-slate-900/20"
-        >
-          <img
-            src={entry.photoUrl}
-            alt={entry.title}
-            className="h-48 w-full object-cover"
-          />
-          <div className="space-y-3 p-5 text-slate-800">
-            <div className="flex items-center gap-2 text-xs uppercase tracking-widest text-slate-500">
-              <span>{new Date(entry.createdAt).toLocaleDateString()}</span>
-              {entry.tags?.map((tag) => (
-                <span
-                  key={tag}
-                  className="rounded-full bg-slate-900/90 px-2 py-0.5 text-[10px] text-white"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-            <h3 className="text-lg font-semibold text-slate-900">
-              {entry.title}
-            </h3>
-            <p className="text-sm leading-relaxed text-slate-600">
-              {entry.caption}
-            </p>
-          </div>
-        </article>
+      {data.map((entry) => (
+        <MemoryCard key={entry.id} memory={entry} actions={actions?.(entry)} />
       ))}
     </div>
   );

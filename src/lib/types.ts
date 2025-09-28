@@ -11,16 +11,17 @@ export interface FamilyMember {
 
 export interface GuestbookEntry {
   id: string;
-  familyMemberId: string;
+  authorClerkId: string;
+  authorName?: string;
+  authorImageUrl?: string;
   title: string;
-  caption: string;
+  description?: string;
   photoStorageId: string;
   photoUrl: string;
   photoAltText?: string;
-  tags?: string[];
-  visibility: "public" | "hidden";
   createdAt: string;
   updatedAt: string;
+  deletedAt?: string;
 }
 
 export type ArticleCategory = "usage" | "maintenance" | "safety" | "history";

@@ -3,15 +3,17 @@ import { v } from "convex/values";
 
 export default defineSchema({
   guestbookEntries: defineTable({
-    familyMemberId: v.id("familyMembers"),
+    authorClerkId: v.string(),
+    authorName: v.optional(v.string()),
+    authorImageUrl: v.optional(v.string()),
     title: v.string(),
-    caption: v.string(),
+    description: v.optional(v.string()),
     photoStorageId: v.string(),
     photoUrl: v.string(),
     photoAltText: v.optional(v.string()),
-    tags: v.optional(v.array(v.string())),
     createdAt: v.string(),
     updatedAt: v.string(),
+    deletedAt: v.optional(v.string()),
   }).index("by_created", ["createdAt"]),
   articles: defineTable({
     familyMemberId: v.id("familyMembers"),
