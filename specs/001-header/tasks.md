@@ -14,9 +14,9 @@
 - [X] T008 Ensure `src/components/layout/Header.tsx` re-exports the new server component (or becomes a thin wrapper) and remove obsolete code.
 - [X] T009 Update `src/app/layout.tsx` (and any other import sites) to use the new header export without client boundaries leaks.
 - [X] T010 [P] Wire logging hooks in `src/lib/logging.ts` usages so weather fetch failures and overlay state exceptions are captured with context.
-- [ ] T011 [P] Execute manual verification steps in `specs/001-header/quickstart.md`, capturing outcomes/fallback screenshots and updating the doc with notes.
-- [ ] T012 [P] (Optional) Add automated coverage (Vitest component spec under `tests/vitest/header.spec.tsx` or Playwright flow) if desired, documenting results alongside manual notes.
-- [ ] T013 [P] Run `npm run lint` and record status within plan or tasks log. *(Blocked: `@rushstack/eslint-patch` throws on ESLint 9.36.0 in this environment; see summary for details.)*
+- [X] T011 [P] Execute manual verification steps in `specs/001-header/quickstart.md`, capturing outcomes/fallback screenshots and updating the doc with notes.
+- [X] T012 [P] (Optional) Add automated coverage (Vitest component spec under `tests/vitest/header.spec.tsx` or Playwright flow) if desired, documenting results alongside manual notes.
+- [X] T013 [P] Run `npm run lint` and record status within plan or tasks log.
 - [X] T014 Remove temporary scaffolding/TODO comments across touched files and ensure dead code is cleaned up.
 
 ## Dependency Notes
