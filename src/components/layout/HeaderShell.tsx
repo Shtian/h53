@@ -1,10 +1,9 @@
 "use client";
 
-import { useState, type CSSProperties } from "react";
+import { useMemo, useState, type CSSProperties } from "react";
 
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import Link from "next/link";
-import { AlertTriangle } from "lucide-react";
 
 import {
   Drawer,
@@ -15,6 +14,7 @@ import {
 } from "@/components/ui/drawer";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
+import { ERROR_ICON, resolveWeatherIcon } from "@/lib/weather/icons";
 import type { WeatherBannerState } from "@/lib/weather/state";
 
 type HeaderShellProps = {
@@ -23,8 +23,30 @@ type HeaderShellProps = {
 
 const HEADER_STYLE = { "--header-height": "4rem" } as CSSProperties;
 
+const temperatureFormatter = new Intl.NumberFormat("nb-NO", {
+  minimumFractionDigits: 1,
+  maximumFractionDigits: 1,
+});
+
 export function HeaderShell({ weather }: HeaderShellProps) {
   const [isOpen, setIsOpen] = useState(false);
+
+  const Icon = useMemo(() => {
+    if (weather.kind === "success") {
+      return resolveWeatherIcon(weather.symbol);
+    }
+    return ERROR_ICON;
+  }, [weather]);
+
+  const temperatureLabel =
+    weather.kind === "success"
+      ? `${temperatureFormatter.format(weather.temperatureC)}°C`
+      : null;
+
+  const conditionLabel =
+    weather.kind === "success"
+      ? weather.condition.replace(/_/g, " ")
+      : weather.message;
 
   return (
     <header
@@ -100,31 +122,44 @@ export function HeaderShell({ weather }: HeaderShellProps) {
         </nav>
       </div>
       <div className="flex items-center gap-4 text-sm">
-        {weather.kind === "success" ? (
-          <span className="inline rounded-full bg-slate-800/60 px-3 py-1">
-            {weather.summary}
-          </span>
-        ) : (
-          <Popover>
-            <PopoverTrigger asChild>
+        <Popover>
+          <PopoverTrigger asChild>
+            {weather.kind === "success" ? (
+              <button
+                type="button"
+                aria-label={`Vær: ${conditionLabel}`}
+                className="inline-flex items-center gap-2 rounded-full bg-slate-800/60 px-3 py-1 text-left hover:bg-slate-800/80"
+              >
+                <Icon className="h-4 w-4" aria-hidden="true" />
+                <span>{temperatureLabel}</span>
+              </button>
+            ) : (
               <button
                 type="button"
                 aria-label="Weather information unavailable"
                 className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-amber-500/20 text-amber-300 transition hover:bg-amber-500/30"
               >
-                <AlertTriangle className="h-4 w-4" aria-hidden="true" />
+                <Icon className="h-4 w-4" aria-hidden="true" />
               </button>
-            </PopoverTrigger>
-            <PopoverContent
-              side="bottom"
-              align="end"
-              className="w-64 rounded-xl border border-slate-700/60 bg-slate-900/95 p-4 text-left text-sm text-slate-100 shadow-lg"
-            >
-              <p className="font-semibold text-amber-300">Været er utilgjengelig</p>
-              <p className="mt-2 text-slate-200">{weather.message}</p>
-            </PopoverContent>
-          </Popover>
-        )}
+            )}
+          </PopoverTrigger>
+          <PopoverContent
+            side="bottom"
+            align="end"
+            className="w-64 rounded-xl border border-slate-700/60 bg-slate-900/95 p-4 text-left text-sm text-slate-100 shadow-lg"
+          >
+            {weather.kind === "success" ? (
+              <p className="font-semibold text-slate-100 capitalize">
+                {conditionLabel}
+              </p>
+            ) : (
+              <>
+                <p className="font-semibold text-amber-300">Været er utilgjengelig</p>
+                <p className="mt-2 text-slate-200">{conditionLabel}</p>
+              </>
+            )}
+          </PopoverContent>
+        </Popover>
         <SignedIn>
           <UserButton />
         </SignedIn>
