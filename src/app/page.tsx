@@ -41,7 +41,7 @@ function Content() {
       <div>Authenticated content: {messages?.length}</div>
       {messages?.length > 0
         ? messages?.map((m) => {
-            return <p>{m.message}</p>;
+            return <p key={m._id}>{m.message}</p>;
           })
         : null}
     </div>
