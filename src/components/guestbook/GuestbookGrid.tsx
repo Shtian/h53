@@ -11,7 +11,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 type GuestbookGridProps = {
   actions?: (entry: GuestbookEntry) => ReactNode;
-  initialEntries?: Preloaded<typeof api.guestbook.list>;
+  initialEntries: Preloaded<typeof api.guestbook.list>;
 };
 
 export function GuestbookGrid({ actions, initialEntries }: GuestbookGridProps) {
