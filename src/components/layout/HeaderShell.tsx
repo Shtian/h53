@@ -201,7 +201,9 @@ export function HeaderShell({ weather }: HeaderShellProps) {
           <UserButton />
         </SignedIn>
         <SignedOut>
-          <SignInButton />
+          <SignInButton>
+            <Button variant="outline" className="bg-transparent">Logg inn</Button>
+          </SignInButton>
         </SignedOut>
       </div>
     </header>
