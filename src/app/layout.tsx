@@ -27,6 +27,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="no">
+      <head>
+        <meta name="apple-mobile-web-app-title" content="H53" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-[100vh] font-sans`}
       >
