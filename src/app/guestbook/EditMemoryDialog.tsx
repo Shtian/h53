@@ -203,10 +203,7 @@ export function EditMemoryDialog({ entry, children }: EditMemoryDialogProps) {
         </DialogHeader>
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div className="space-y-2">
-            <label
-              className="text-sm font-medium"
-              htmlFor="edit-photo"
-            >
+            <label className="text-sm font-medium" htmlFor="edit-photo">
               Bilde
             </label>
             <input
@@ -221,10 +218,7 @@ export function EditMemoryDialog({ entry, children }: EditMemoryDialogProps) {
           </div>
 
           <div className="space-y-2">
-            <label
-              className="text-sm font-medium "
-              htmlFor="edit-title"
-            >
+            <label className="text-sm font-medium " htmlFor="edit-title">
               Tittel
             </label>
             <input
@@ -245,11 +239,9 @@ export function EditMemoryDialog({ entry, children }: EditMemoryDialogProps) {
           </div>
 
           <div className="space-y-2">
-            <label
-              className="text-sm font-medium "
-              htmlFor="edit-description"
-            >
-              Beskrivelse <span className="text-muted-foreground">(valgfritt)</span>
+            <label className="text-sm font-medium " htmlFor="edit-description">
+              Beskrivelse{" "}
+              <span className="text-muted-foreground">(valgfritt)</span>
             </label>
             <textarea
               id="edit-description"

@@ -17,9 +17,7 @@ export function GuestbookClient({ initialEntries }: GuestbookClientProps) {
     <div className="flex flex-col gap-10">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="space-y-1">
-          <h1 className="text-4xl font-semibold text-slate-50">
-            Hyttebilder
-          </h1>
+          <h1 className="text-4xl font-semibold text-slate-50">Hyttebilder</h1>
           <p className="max-w-2xl text-sm text-slate-300">
             Se bilder og last opp dine egne!
           </p>

@@ -163,10 +163,7 @@ export function AddEntryButton() {
         </DialogHeader>
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div className="space-y-2">
-            <label
-              htmlFor="photo"
-              className="text-sm font-medium"
-            >
+            <label htmlFor="photo" className="text-sm font-medium">
               Bilde
             </label>
             <input
@@ -182,10 +179,7 @@ export function AddEntryButton() {
           </div>
 
           <div className="space-y-2">
-            <label
-              htmlFor="title"
-              className="text-sm font-medium "
-            >
+            <label htmlFor="title" className="text-sm font-medium ">
               Tittel
             </label>
             <input
@@ -207,11 +201,9 @@ export function AddEntryButton() {
           </div>
 
           <div className="space-y-2">
-            <label
-              htmlFor="description"
-              className="text-sm font-medium"
-            >
-              Beskrivelse <span className="text-muted-foreground">(valgfritt)</span>
+            <label htmlFor="description" className="text-sm font-medium">
+              Beskrivelse{" "}
+              <span className="text-muted-foreground">(valgfritt)</span>
             </label>
             <textarea
               id="description"
