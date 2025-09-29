@@ -31,12 +31,12 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-title" content="H53" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-[100vh] font-sans`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-[100vh] font-sans  bg-slate-950 text-slate-100`}
       >
         <ClerkProvider>
           <ConvexClientProvider>
             <Header />
-            <main className="min-h-[calc(100vh-4rem)] bg-slate-950 text-slate-100">
+            <main className="min-h-[calc(100vh-4rem)]">
               {children}
             </main>
           </ConvexClientProvider>
