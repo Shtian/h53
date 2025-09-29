@@ -26,7 +26,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="no">
+    <html lang="no" className="dark">
       <head>
         <meta name="apple-mobile-web-app-title" content="H53" />
       </head>

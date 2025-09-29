@@ -165,7 +165,7 @@ export function AddEntryButton() {
           <div className="space-y-2">
             <label
               htmlFor="photo"
-              className="text-sm font-medium text-slate-700"
+              className="text-sm font-medium"
             >
               Bilde
             </label>
@@ -176,15 +176,15 @@ export function AddEntryButton() {
               accept="image/jpeg,image/png"
               required
               onChange={handleFileChange}
-              className="block w-full cursor-pointer rounded-md border border-slate-300 bg-white px-4 py-2 text-sm text-slate-700 file:mr-4 file:rounded-md file:border-0 file:bg-slate-800 file:px-4 file:py-2 file:text-sm file:font-medium file:text-white"
+              className="block w-full cursor-pointer rounded-md border border-slate-300/80 px-4 py-2 text-sm  file:mr-4 file:rounded-md file:border-0 file:bg-slate-800 file:px-4 file:py-2 file:text-sm file:font-medium file:text-white"
             />
-            <p className="text-xs text-slate-500">{fileHint}</p>
+            <p className="text-xs text-muted-foreground">{fileHint}</p>
           </div>
 
           <div className="space-y-2">
             <label
               htmlFor="title"
-              className="text-sm font-medium text-slate-700"
+              className="text-sm font-medium "
             >
               Tittel
             </label>
@@ -209,9 +209,9 @@ export function AddEntryButton() {
           <div className="space-y-2">
             <label
               htmlFor="description"
-              className="text-sm font-medium text-slate-700"
+              className="text-sm font-medium"
             >
-              Beskrivelse <span className="text-slate-400">(valgfritt)</span>
+              Beskrivelse <span className="text-muted-foreground">(valgfritt)</span>
             </label>
             <textarea
               id="description"

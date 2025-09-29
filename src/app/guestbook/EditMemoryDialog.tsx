@@ -204,7 +204,7 @@ export function EditMemoryDialog({ entry, children }: EditMemoryDialogProps) {
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div className="space-y-2">
             <label
-              className="text-sm font-medium text-slate-700"
+              className="text-sm font-medium"
               htmlFor="edit-photo"
             >
               Bilde
@@ -215,14 +215,14 @@ export function EditMemoryDialog({ entry, children }: EditMemoryDialogProps) {
               type="file"
               accept="image/jpeg,image/png"
               onChange={handleFileChange}
-              className="block w-full cursor-pointer rounded-md border border-slate-300 bg-white px-4 py-2 text-sm text-slate-700 file:mr-4 file:rounded-md file:border-0 file:bg-slate-800 file:px-4 file:py-2 file:text-sm file:font-medium file:text-white"
+              className="block w-full cursor-pointer rounded-md border border-slate-300/80 px-4 py-2 text-sm  file:mr-4 file:rounded-md file:border-0 file:bg-slate-800 file:px-4 file:py-2 file:text-sm file:font-medium file:text-white"
             />
-            <p className="text-xs text-slate-500">{fileHint}</p>
+            <p className="text-xs text-muted-foreground">{fileHint}</p>
           </div>
 
           <div className="space-y-2">
             <label
-              className="text-sm font-medium text-slate-700"
+              className="text-sm font-medium "
               htmlFor="edit-title"
             >
               Tittel
@@ -246,10 +246,10 @@ export function EditMemoryDialog({ entry, children }: EditMemoryDialogProps) {
 
           <div className="space-y-2">
             <label
-              className="text-sm font-medium text-slate-700"
+              className="text-sm font-medium "
               htmlFor="edit-description"
             >
-              Beskrivelse <span className="text-slate-400">(valgfritt)</span>
+              Beskrivelse <span className="text-muted-foreground">(valgfritt)</span>
             </label>
             <textarea
               id="edit-description"
@@ -287,7 +287,7 @@ export function EditMemoryDialog({ entry, children }: EditMemoryDialogProps) {
                 )}
               </Button>
               {deleteArmed ? (
-                <p className="text-xs text-slate-500">
+                <p className="text-xs text-muted">
                   Klikk bekreft for å permanent slette dette innlegget.
                 </p>
               ) : null}
