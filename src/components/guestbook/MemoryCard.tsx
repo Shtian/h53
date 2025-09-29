@@ -1,24 +1,17 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
+import type { GuestbookEntry } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
 type MemoryCardProps = {
-  memory: {
-    id: string;
-    title: string;
-    description?: string | null;
-    photoUrl: string;
-    photoAltText?: string | null;
-    createdAt: string;
-    authorName?: string | null;
-  };
+  memory: GuestbookEntry;
   actions?: ReactNode;
   className?: string;
 };
 
 export function MemoryCard({ memory, actions, className }: MemoryCardProps) {
   const displayDate = new Date(memory.createdAt);
-  const formattedDate = new Intl.DateTimeFormat("en", {
+  const formattedDate = new Intl.DateTimeFormat("nb-no", {
     month: "short",
     day: "numeric",
     year: "numeric",
@@ -27,42 +20,45 @@ export function MemoryCard({ memory, actions, className }: MemoryCardProps) {
   return (
     <article
       className={cn(
-        "group relative overflow-hidden rounded-2xl bg-white/90 shadow-lg shadow-slate-900/20",
+        "group relative overflow-hidden rounded-2xl border border-slate-800/50 bg-slate-900/60 p-6 shadow-lg shadow-slate-950/50 backdrop-blur",
         className,
       )}
     >
-      <div className="aspect-[4/3] overflow-hidden">
+      <header className="flex flex-wrap items-start justify-between gap-4">
+        <div className="space-y-1">
+          <p className="text-xs font-semibold uppercase tracking-widest text-sky-300/80">
+            {formattedDate}
+          </p>
+          <h3 className="text-2xl font-semibold text-slate-50">
+            {memory.title}
+          </h3>
+          {memory.authorName ? (
+            <p className="text-xs text-slate-400">
+              Shared by {memory.authorName}
+            </p>
+          ) : null}
+        </div>
+        {actions ? (
+          <div className="ml-auto flex gap-2 text-slate-200">{actions}</div>
+        ) : null}
+      </header>
+
+      <div className="relative mt-5 flex items-center justify-center overflow-hidden ">
         <Image
           src={memory.photoUrl}
           alt={memory.photoAltText ?? memory.title}
-          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          width={960}
+          height={1280}
+          sizes="(max-width: 768px) 100vw, 75vw"
+          className="h-auto max-h-[30rem] w-full object-contain"
         />
       </div>
-      <div className="space-y-4 p-5 text-slate-800">
-        <header className="flex items-start justify-between gap-3">
-          <div>
-            <p className="text-xs uppercase tracking-widest text-slate-500">
-              {formattedDate}
-            </p>
-            <h3 className="text-lg font-semibold text-slate-900">
-              {memory.title}
-            </h3>
-            {memory.authorName ? (
-              <p className="text-xs text-slate-500">
-                Shared by {memory.authorName}
-              </p>
-            ) : null}
-          </div>
-          {actions ? (
-            <div className="shrink-0 text-right">{actions}</div>
-          ) : null}
-        </header>
-        {memory.description ? (
-          <p className="text-sm leading-relaxed text-slate-600">
-            {memory.description}
-          </p>
-        ) : null}
-      </div>
+
+      {memory.description ? (
+        <p className="mt-4 text-sm leading-relaxed text-slate-200">
+          {memory.description}
+        </p>
+      ) : null}
     </article>
   );
 }

@@ -4,7 +4,7 @@ import { getAuthToken } from "@/lib/auth/clerk";
 import { GuestbookClient } from "./GuestbookClient";
 
 export const metadata = {
-  title: "H53 Guestbook",
+  title: "H53 Bildebok",
 };
 
 export default async function GuestbookPage() {

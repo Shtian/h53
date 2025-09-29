@@ -1,19 +1,22 @@
 "use client";
 
-import { Authenticated } from "convex/react";
+import Image from "next/image"
 
 export default function Home() {
   return (
-    <Authenticated>
-      <Content />
-    </Authenticated>
-  );
-}
+  <div className="text-center max-w-4xl mx-auto">
+        <h1 className="text-6xl md:text-8xl py-12 tracking-wide">Høgfjellia 53</h1>
 
-function Content() {
-  return (
-    <div className="space-y-8">
-      <h1>Høgfjellia 53</h1>
-    </div>
+        <div className="relative w-full max-w-3xl mx-auto">
+          <Image
+            src="/images/h53.png"
+            alt="Mountain cabin illustration with pine trees and flowing wind lines"
+            width={800}
+            height={600}
+            className="w-full h-auto opacity-95 transition-opacity duration-500 hover:opacity-100"
+            priority
+          />
+        </div>
+      </div>
   );
 }

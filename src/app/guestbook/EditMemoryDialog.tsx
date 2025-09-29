@@ -129,14 +129,14 @@ export function EditMemoryDialog({ entry, children }: EditMemoryDialogProps) {
           body: formState.file,
         });
         if (!uploadResponse.ok) {
-          throw new Error("Upload failed");
+          throw new Error("Opplasting mislykket");
         }
         const payload = (await uploadResponse.json()) as { storageId: string };
         updates.imageStorageId = payload.storageId;
       }
 
       if (Object.keys(updates).length === 1) {
-        toast.info("No changes to save");
+        toast.info("Ingen endringer å lagre");
         return;
       }
 
@@ -152,7 +152,7 @@ export function EditMemoryDialog({ entry, children }: EditMemoryDialogProps) {
         changedDescription: updates.description !== undefined,
         replacedPhoto: updates.imageStorageId !== undefined,
       });
-      toast.success("Memory updated");
+      toast.success("Bildepost oppdatert");
       handleDialogChange(false);
     } catch (error) {
       console.error(error);
@@ -160,7 +160,7 @@ export function EditMemoryDialog({ entry, children }: EditMemoryDialogProps) {
         entryId: entry.id,
         message: error instanceof Error ? error.message : String(error),
       });
-      toast.error("Unable to update this memory");
+      toast.error("Kunne ikke oppdatere bildepost");
     } finally {
       setIsSubmitting(false);
     }
@@ -196,9 +196,9 @@ export function EditMemoryDialog({ entry, children }: EditMemoryDialogProps) {
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Edit memory</DialogTitle>
+          <DialogTitle>Rediger bilde</DialogTitle>
           <DialogDescription>
-            Update the title, description, or replace the photo for this memory.
+            Oppdater tittel, beskrivelse eller bildet.
           </DialogDescription>
         </DialogHeader>
         <form className="space-y-6" onSubmit={handleSubmit}>
@@ -207,7 +207,7 @@ export function EditMemoryDialog({ entry, children }: EditMemoryDialogProps) {
               className="text-sm font-medium text-slate-700"
               htmlFor="edit-photo"
             >
-              Photo
+              Bilde
             </label>
             <input
               id="edit-photo"
@@ -225,7 +225,7 @@ export function EditMemoryDialog({ entry, children }: EditMemoryDialogProps) {
               className="text-sm font-medium text-slate-700"
               htmlFor="edit-title"
             >
-              Title
+              Tittel
             </label>
             <input
               id="edit-title"
@@ -249,7 +249,7 @@ export function EditMemoryDialog({ entry, children }: EditMemoryDialogProps) {
               className="text-sm font-medium text-slate-700"
               htmlFor="edit-description"
             >
-              Description <span className="text-slate-400">(optional)</span>
+              Beskrivelse <span className="text-slate-400">(valgfritt)</span>
             </label>
             <textarea
               id="edit-description"
@@ -277,18 +277,18 @@ export function EditMemoryDialog({ entry, children }: EditMemoryDialogProps) {
               >
                 {isDeleting ? (
                   <>
-                    <Loader2 className="size-4 animate-spin" /> Deleting…
+                    <Loader2 className="size-4 animate-spin" /> Sletter…
                   </>
                 ) : (
                   <>
                     <Trash2 className="size-4" />
-                    {deleteArmed ? "Confirm delete" : "Delete"}
+                    {deleteArmed ? "Bekreft sletting" : "Slett"}
                   </>
                 )}
               </Button>
               {deleteArmed ? (
                 <p className="text-xs text-slate-500">
-                  Click confirm to permanently remove this memory.
+                  Klikk bekreft for å permanent slette dette innlegget.
                 </p>
               ) : null}
             </div>
@@ -299,15 +299,15 @@ export function EditMemoryDialog({ entry, children }: EditMemoryDialogProps) {
                 onClick={() => handleDialogChange(false)}
                 disabled={isSubmitting || isDeleting}
               >
-                Cancel
+                Avbryt
               </Button>
               <Button type="submit" disabled={isSubmitting || isDeleting}>
                 {isSubmitting ? (
                   <>
-                    <Loader2 className="size-4 animate-spin" /> Saving
+                    <Loader2 className="size-4 animate-spin" /> Lagrer
                   </>
                 ) : (
-                  "Save changes"
+                  "Lagre endringer"
                 )}
               </Button>
             </div>

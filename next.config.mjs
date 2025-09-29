@@ -10,6 +10,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "*.yr.no",
       },
+      {
+        protocol: "https",
+        hostname: "fiery-dinosaur-142.convex.cloud",
+      }
     ],
   },
 };

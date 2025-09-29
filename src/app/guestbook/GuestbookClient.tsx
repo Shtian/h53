@@ -1,9 +1,10 @@
 "use client";
 
 import type { Preloaded } from "convex/react";
+import { Pencil } from "lucide-react";
+import type { api } from "@/../convex/_generated/api";
 import { GuestbookGrid } from "@/components/guestbook/GuestbookGrid";
 import { Button } from "@/components/ui/button";
-import type { api } from "../../../convex/_generated/api";
 import { AddEntryButton } from "./AddEntryButton";
 import { EditMemoryDialog } from "./EditMemoryDialog";
 
@@ -17,11 +18,10 @@ export function GuestbookClient({ initialEntries }: GuestbookClientProps) {
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="space-y-1">
           <h1 className="text-4xl font-semibold text-slate-50">
-            Family memories
+            Hyttebilder
           </h1>
           <p className="max-w-2xl text-sm text-slate-300">
-            Browse shared stories from the cabin crew. Add your own memories at
-            any time—photos look great on mobile, too.
+            Se bilder og last opp dine egne!
           </p>
         </div>
         <AddEntryButton />
@@ -32,7 +32,7 @@ export function GuestbookClient({ initialEntries }: GuestbookClientProps) {
         actions={(entry) => (
           <EditMemoryDialog entry={entry}>
             <Button variant="ghost" size="sm">
-              Edit
+              <Pencil /> Endre
             </Button>
           </EditMemoryDialog>
         )}

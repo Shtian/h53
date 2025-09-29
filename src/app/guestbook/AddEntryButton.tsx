@@ -41,7 +41,7 @@ export function AddEntryButton() {
 
   const fileHint = useMemo(() => {
     if (!formState.file) {
-      return "JPEG or PNG, up to 10 MB";
+      return "JPEG eller PNG, opp til 10 MB";
     }
 
     const sizeMb = (formState.file.size / (1024 * 1024)).toFixed(1);
@@ -70,13 +70,13 @@ export function AddEntryButton() {
     }
 
     if (!ACCEPTED_FILE_TYPES.includes(file.type)) {
-      toast.error("Please choose a JPEG or PNG image");
+      toast.error("Vennligst velg et JPG eller PNG bilde");
       input.value = "";
       return;
     }
 
     if (file.size > MAX_FILE_SIZE_BYTES) {
-      toast.error("Image must be 10 MB or smaller");
+      toast.error("Bildet må være 10 MB eller mindre");
       input.value = "";
       return;
     }
@@ -133,14 +133,14 @@ export function AddEntryButton() {
         hasDescription: Boolean(validated.description),
       });
 
-      toast.success("Memory added");
+      toast.success("Bilde lagt til!");
       handleDialogChange(false);
     } catch (error) {
       console.error(error);
       logEvent("guestbook.create.failure", {
         message: error instanceof Error ? error.message : String(error),
       });
-      toast.error("Something went wrong while saving your memory");
+      toast.error("Noe gikk galt under opplasting av bildet");
     } finally {
       setIsSubmitting(false);
     }
@@ -151,14 +151,14 @@ export function AddEntryButton() {
       <DialogTrigger asChild>
         <Button size="lg" className="self-start">
           <Plus className="size-4" />
-          Add entry
+          Legg til
         </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Add a new memory</DialogTitle>
+          <DialogTitle>Legg til nytt bilde</DialogTitle>
           <DialogDescription>
-            Upload a photo, give it a title, and optionally describe the moment.
+            Last opp et bilde, gi det en tittel og beskriv øyeblikket om du vil.
           </DialogDescription>
         </DialogHeader>
         <form className="space-y-6" onSubmit={handleSubmit}>
@@ -167,7 +167,7 @@ export function AddEntryButton() {
               htmlFor="photo"
               className="text-sm font-medium text-slate-700"
             >
-              Photo
+              Bilde
             </label>
             <input
               id="photo"
@@ -186,7 +186,7 @@ export function AddEntryButton() {
               htmlFor="title"
               className="text-sm font-medium text-slate-700"
             >
-              Title
+              Tittel
             </label>
             <input
               id="title"
@@ -211,7 +211,7 @@ export function AddEntryButton() {
               htmlFor="description"
               className="text-sm font-medium text-slate-700"
             >
-              Description <span className="text-slate-400">(optional)</span>
+              Beskrivelse <span className="text-slate-400">(valgfritt)</span>
             </label>
             <textarea
               id="description"
@@ -237,15 +237,15 @@ export function AddEntryButton() {
               onClick={() => handleDialogChange(false)}
               disabled={isSubmitting}
             >
-              Cancel
+              Avbryt
             </Button>
             <Button type="submit" disabled={isSubmitting}>
               {isSubmitting ? (
                 <>
-                  <Loader2 className="size-4 animate-spin" /> Saving
+                  <Loader2 className="size-4 animate-spin" /> Lagrer
                 </>
               ) : (
-                "Save memory"
+                "Lagre bilde"
               )}
             </Button>
           </DialogFooter>

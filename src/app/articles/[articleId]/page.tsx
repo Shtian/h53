@@ -21,12 +21,12 @@ export async function generateMetadata({
   const article = await getArticleContent(articleId);
   if (!article) {
     return {
-      title: "Article · H53 Cabin",
+      title: "Artikkel · H53",
     };
   }
 
   return {
-    title: `${article.frontmatter.title} · H53 Cabin`,
+    title: `${article.frontmatter.title} · H53`,
     description: article.frontmatter.summary,
   } satisfies Metadata;
 }
@@ -51,7 +51,7 @@ export default async function ArticleDetailPage({
         className="text-sm text-slate-300 transition hover:text-white"
         href="/articles"
       >
-        ← Back to articles
+        ← Tilbake til informasjon
       </Link>
       <article
         className="prose prose-slate lg:prose-xl prose-invert max-w-none"
