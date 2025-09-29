@@ -13,7 +13,11 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "fiery-dinosaur-142.convex.cloud",
-      }
+      },
+      {
+        protocol: "https",
+        hostname: "descriptive-cricket-209.convex.cloud",
+      },
     ],
   },
 };

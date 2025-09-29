@@ -15,16 +15,6 @@ export default defineSchema({
     updatedAt: v.string(),
     deletedAt: v.optional(v.string()),
   }).index("by_created", ["createdAt"]),
-  articles: defineTable({
-    familyMemberId: v.id("familyMembers"),
-    title: v.string(),
-    summary: v.string(),
-    contentMarkdown: v.string(),
-    coverImageStorageId: v.optional(v.string()),
-    coverImageUrl: v.optional(v.string()),
-    updatedAt: v.string(),
-    publishedAt: v.optional(v.string()),
-  }).index("by_published_at", ["publishedAt"]),
   messages: defineTable({
     message: v.string(),
     author: v.string(),
