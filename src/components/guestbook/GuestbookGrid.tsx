@@ -47,7 +47,7 @@ export function GuestbookGrid({ actions, initialEntries }: GuestbookGridProps) {
     return (
       <div className="rounded-2xl border border-slate-700/40 bg-slate-900/40 p-10 text-center">
         <p className="text-base font-medium text-slate-100">
-          No memories yet. Be the first to add one!
+          Ingen her bilder ennå. Bli den første til å legge til!
         </p>
       </div>
     );
