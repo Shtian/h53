@@ -98,6 +98,13 @@ export function HeaderShell({ weather }: HeaderShellProps) {
                 </DrawerClose>
               </div>
               <nav className="mt-8 flex flex-col gap-6 text-lg">
+                <Link
+                  href="/egg"
+                  onClick={() => setIsOpen(false)}
+                  className="uppercase tracking-widest text-slate-300 transition hover:text-white"
+                >
+                  Egg
+                </Link>
                 <SignedIn>
                   <Link
                     href="/guestbook"
@@ -125,6 +132,9 @@ export function HeaderShell({ weather }: HeaderShellProps) {
           <span className="rounded bg-slate-800 px-2 py-1">H53</span>
         </Link>
         <nav className="hidden gap-4 text-sm text-slate-300 md:flex">
+          <Link className="hover:text-white" href="/egg">
+            Egg
+          </Link>
           <SignedIn>
             <Link className="hover:text-white" href="/guestbook">
               Bildebok
